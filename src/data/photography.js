@@ -10,12 +10,12 @@
 const PHOTOGRAPHY_PROJECTS = [
   {
     id: "photo-001",
-    title: "Urban Negative Space",
+    title: "Birds and Nature",
     description:
-      "A study of geometry and emptiness in midwestern architecture. Shot over 6 months across three cities.",
+      "Nature Photography from National Parks.",
 
     longDescription:
-      "This series explores the tension between structure and void in midwestern cities.\n\nShot entirely on 35mm black and white film (Ilford HP5+, pushed to 1600) to emphasize grain and tonal contrast.\n\nThe series was exhibited at a local gallery and selected for a regional anthology.",
+      "Photos of Birds and wild animals from national park travels incuding Yosemite, Red River Gorge.",
 
     tags: ["Architecture", "B&W", "35mm"],
 
