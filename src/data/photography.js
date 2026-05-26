@@ -31,7 +31,7 @@ const PHOTOGRAPHY_PROJECTS = [
     images: [],
 
     // Hero image for the detail page (null = gradient placeholder)
-    coverImage: null,
+    coverImage: "/photos/nature-cover.jpg",
 
     highlights: [
       "35mm film, pushed to 1600",
