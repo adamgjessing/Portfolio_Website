@@ -1,69 +1,51 @@
-// src/components/SectionHeader.jsx
-// ──────────────────────────────────────────────
-// SECTION HEADER — Title bar for a page section.
-// Shows a colored accent bar, title, optional
-// project count, optional description, and
-// optional back button.
-//
-// Props:
-//   title       — section name
-//   count       — number of projects (optional)
-//   accent      — bar color (optional, defaults to gold)
-//   description — paragraph below the title (optional)
-//   onBack      — if provided, shows a back button
-//   backLabel   — text for the back button
-// ──────────────────────────────────────────────
+// src/components/SectionHeader.jsx — Early 2000s Edition
 
 import T from "../theme/theme";
 import BackButton from "./BackButton";
 
 export default function SectionHeader({ title, count, accent, description, onBack, backLabel }) {
   return (
-    <div style={{ marginBottom: "48px" }}>
-      {/* Back button — only shows if onBack is provided */}
+    <div style={{ marginBottom: "40px" }}>
       {onBack && <BackButton onClick={onBack} label={backLabel} />}
 
-      {/* Title row */}
       <div
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          marginBottom: description ? "16px" : "0",
-          paddingBottom: "20px",
-          borderBottom: `1px solid ${T.colors.borderSubtle}`,
+          marginBottom: description ? "14px" : "0",
+          paddingBottom: "12px",
+          borderBottom: `1px solid ${accent || T.colors.accent}`,
+          boxShadow: `0 1px 0 ${T.colors.borderSubtle}`,
         }}
       >
-        {/* Left: accent bar + title */}
-        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-          <div
-            style={{
-              width: "3px",
-              height: "28px",
-              borderRadius: "2px",
-              background: accent || T.colors.accent,
-            }}
-          />
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <span style={{ color: T.colors.accentAlt, fontFamily: T.fonts.mono, fontSize: "14px" }}>►</span>
           <h2
             style={{
               fontFamily: T.fonts.display,
-              fontSize: "32px",
-              fontWeight: 600,
-              letterSpacing: "-0.02em",
+              fontSize: "24px",
+              fontWeight: "bold",
+              letterSpacing: "0.06em",
+              textTransform: "uppercase",
               margin: 0,
+              color: accent || T.colors.accent,
+              textShadow: `0 0 12px rgba(0,204,255,0.4)`,
             }}
           >
             {title}
           </h2>
         </div>
 
-        {/* Right: project count */}
         {count !== undefined && (
           <span
             style={{
               fontFamily: T.fonts.mono,
-              fontSize: "12px",
+              fontSize: "10px",
               color: T.colors.textMuted,
+              letterSpacing: "0.1em",
+              border: `1px solid ${T.colors.border}`,
+              padding: "3px 10px",
             }}
           >
             {count} project{count !== 1 ? "s" : ""}
@@ -71,16 +53,15 @@ export default function SectionHeader({ title, count, accent, description, onBac
         )}
       </div>
 
-      {/* Description — only shows if provided */}
       {description && (
         <p
           style={{
-            fontSize: "16px",
+            fontSize: "13px",
             color: T.colors.textSecondary,
-            lineHeight: 1.7,
+            lineHeight: 1.8,
             margin: 0,
             maxWidth: "640px",
-            fontWeight: 300,
+            fontFamily: T.fonts.body,
           }}
         >
           {description}

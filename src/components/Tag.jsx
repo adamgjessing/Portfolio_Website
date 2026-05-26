@@ -1,12 +1,4 @@
-// src/components/Tag.jsx
-// ──────────────────────────────────────────────
-// TAG — A small pill that displays a label.
-// Used for skills ("Python"), gear ("35mm"), etc.
-//
-// Props:
-//   label  — text to display
-//   accent — optional color override
-// ──────────────────────────────────────────────
+// src/components/Tag.jsx — Early 2000s Edition
 
 import T from "../theme/theme";
 
@@ -15,13 +7,12 @@ export default function Tag({ label, accent }) {
     <span
       style={{
         fontFamily: T.fonts.mono,
-        fontSize: "10px",
-        color: accent || T.colors.textMuted,
-        background: accent ? `${accent}15` : T.colors.bgElevated,
-        padding: "4px 10px",
-        borderRadius: T.radii.sm,
-        border: `1px solid ${accent ? `${accent}25` : T.colors.borderSubtle}`,
-        letterSpacing: "0.04em",
+        fontSize: "9px",
+        color: accent || T.colors.accent,
+        background: accent ? `${accent}12` : "rgba(0,204,255,0.07)",
+        padding: "3px 8px",
+        border: `1px solid ${accent ? `${accent}30` : T.colors.border}`,
+        letterSpacing: "0.08em",
         textTransform: "uppercase",
       }}
     >

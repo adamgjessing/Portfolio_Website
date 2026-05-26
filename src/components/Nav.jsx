@@ -1,14 +1,7 @@
 // src/components/Nav.jsx
-// ──────────────────────────────────────────────
-// NAV — Fixed navigation bar at the top.
-//
-// Auto-generates links from SITE_CONFIG.sections.
-// Highlights the active section using its accent color.
-//
-// Props:
-//   router — the useRouter() object
-// ──────────────────────────────────────────────
+// Early 2000s nav bar — solid dark, bevel buttons, cyan accents
 
+import { useState } from "react";
 import T from "../theme/theme";
 import SITE_CONFIG from "../data/siteConfig";
 import { SECTION_CONFIG } from "../data/sectionRegistry";
@@ -25,23 +18,26 @@ export default function Nav({ router }) {
         left: 0,
         right: 0,
         zIndex: 100,
-        background: "rgba(10, 10, 12, 0.88)",
-        backdropFilter: "blur(24px)",
-        borderBottom: `1px solid ${T.colors.borderSubtle}`,
+        background: "linear-gradient(to bottom, #000033, #000011)",
+        borderBottom: `2px solid ${T.colors.accent}`,
+        boxShadow: `0 2px 12px rgba(0, 204, 255, 0.3)`,
       }}
     >
+      {/* Top cyan stripe */}
+      <div style={{ height: "2px", background: `linear-gradient(to right, transparent, #00CCFF, #FF00FF, #00CCFF, transparent)` }} />
+
       <div
         style={{
           maxWidth: "1200px",
           margin: "0 auto",
-          padding: "0 40px",
-          height: "64px",
+          padding: "0 24px",
+          height: "52px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
-        {/* Logo — clicks to home */}
+        {/* Logo */}
         <button
           onClick={goHome}
           style={{
@@ -50,86 +46,89 @@ export default function Nav({ router }) {
             cursor: "pointer",
             display: "flex",
             alignItems: "center",
-            gap: "6px",
+            gap: "8px",
             padding: 0,
           }}
         >
+          <span style={{ color: T.colors.accent, fontFamily: T.fonts.mono, fontSize: "14px" }}>
+            ★
+          </span>
           <span
+            className="glow"
             style={{
               fontFamily: T.fonts.display,
-              fontSize: "20px",
-              fontWeight: 600,
-              color: T.colors.textPrimary,
+              fontSize: "16px",
+              fontWeight: "bold",
+              color: T.colors.accent,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              textShadow: `0 0 8px ${T.colors.accent}`,
             }}
           >
             {SITE_CONFIG.name.split(" ")[0]}
           </span>
-          <span
-            style={{
-              width: "6px",
-              height: "6px",
-              borderRadius: "50%",
-              background: T.colors.accent,
-            }}
-          />
+          <span style={{ color: "#FF00FF", fontFamily: T.fonts.mono, fontSize: "14px" }}>
+            ★
+          </span>
         </button>
 
-        {/* Navigation links — auto-generated from sections */}
-        <div style={{ display: "flex", gap: "4px" }}>
+        {/* Navigation links */}
+        <div style={{ display: "flex", gap: "2px" }}>
           {SITE_CONFIG.sections.map((section) => {
             const config = SECTION_CONFIG[section] || {};
-
-            // Is this section currently active?
             const isActive =
               (currentPage === "section" && route.params.section === section) ||
               (currentPage === "project" && route.params.section === section);
 
             return (
-              <button
+              <NavButton
                 key={section}
+                label={config.label || section}
+                isActive={isActive}
                 onClick={() => goSection(section)}
-                style={{
-                  background: isActive ? (config.accentMuted || T.colors.accentMuted) : "none",
-                  border: "none",
-                  color: isActive ? T.colors.textPrimary : T.colors.textSecondary,
-                  fontFamily: T.fonts.body,
-                  fontSize: "13px",
-                  fontWeight: 500,
-                  letterSpacing: "0.04em",
-                  textTransform: "uppercase",
-                  cursor: "pointer",
-                  padding: "8px 16px",
-                  borderRadius: T.radii.sm,
-                  transition: `all ${T.transitions.fast}`,
-                }}
-              >
-                {config.label || section}
-              </button>
+              />
             );
           })}
-
-          {/* About link */}
-          <button
+          <NavButton
+            label="About"
+            isActive={currentPage === "about"}
             onClick={goAbout}
-            style={{
-              background: currentPage === "about" ? T.colors.accentMuted : "none",
-              border: "none",
-              color: currentPage === "about" ? T.colors.textPrimary : T.colors.textSecondary,
-              fontFamily: T.fonts.body,
-              fontSize: "13px",
-              fontWeight: 500,
-              letterSpacing: "0.04em",
-              textTransform: "uppercase",
-              cursor: "pointer",
-              padding: "8px 16px",
-              borderRadius: T.radii.sm,
-              transition: `all ${T.transitions.fast}`,
-            }}
-          >
-            About
-          </button>
+          />
         </div>
       </div>
     </nav>
+  );
+}
+
+function NavButton({ label, isActive, onClick }) {
+  const [hovered, setHovered] = useState(false);
+  const active = isActive || hovered;
+
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        background: active
+          ? "linear-gradient(to bottom, #003366, #001A44)"
+          : "linear-gradient(to bottom, #001A33, #000A1A)",
+        border: active
+          ? `1px solid ${T.colors.accent}`
+          : "1px solid #003355",
+        color: active ? T.colors.accent : T.colors.textSecondary,
+        fontFamily: T.fonts.body,
+        fontSize: "11px",
+        fontWeight: "bold",
+        letterSpacing: "0.08em",
+        textTransform: "uppercase",
+        cursor: "pointer",
+        padding: "6px 14px",
+        textShadow: active ? `0 0 6px ${T.colors.accent}` : "none",
+        boxShadow: active ? `0 0 8px rgba(0,204,255,0.3), inset 0 1px 0 rgba(0,204,255,0.2)` : "none",
+      }}
+    >
+      {label}
+    </button>
   );
 }

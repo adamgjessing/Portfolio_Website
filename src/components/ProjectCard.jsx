@@ -1,78 +1,77 @@
 // src/components/ProjectCard.jsx
-// ──────────────────────────────────────────────
-// PROJECT CARD — Clickable card for one project.
-//
-// This component is generic — it doesn't know if
-// it's showing an analytics project or a photo
-// series. It just renders whatever data you pass it.
-//
-// Props:
-//   project — the project data object
-//   variant — section key (e.g., "analytics") for color
-//   onClick — function called when card is clicked
-//   size    — "default" or "large" (large = horizontal layout)
-// ──────────────────────────────────────────────
+// Early 2000s Edition — sharp corners, neon glow borders
 
 import { useState } from "react";
 import T from "../theme/theme";
 import { SECTION_CONFIG } from "../data/sectionRegistry";
 import Tag from "./Tag";
 
-// Placeholder gradients for the image area (until you add real images)
 const GRADIENTS = {
-  analytics: "linear-gradient(135deg, #0f1a2a 0%, #1a0f2a 50%, #0f2a1a 100%)",
-  photography: "linear-gradient(135deg, #2a2210 0%, #1a2228 50%, #28221a 100%)",
+  analytics:   "linear-gradient(135deg, #000A1A 0%, #001133 50%, #000A1A 100%)",
+  photography: "linear-gradient(135deg, #0A0008 0%, #100020 50%, #080010 100%)",
 };
 
 export default function ProjectCard({ project, variant, onClick, size = "default" }) {
   const [hovered, setHovered] = useState(false);
 
-  // Look up the section's accent color
   const config = SECTION_CONFIG[variant] || {};
   const accent = config.accent || T.colors.accent;
-
   const isLarge = size === "large";
 
   return (
     <article
       style={{
         background: hovered ? T.colors.bgCardHover : T.colors.bgCard,
-        borderRadius: T.radii.lg,
         overflow: "hidden",
-        border: `1px solid ${hovered ? accent + "60" : T.colors.border}`,
-        transition: `all ${T.transitions.default}`,
+        border: hovered
+          ? `1px solid ${T.colors.accent}`
+          : `1px solid ${T.colors.border}`,
+        borderTop: hovered
+          ? `2px solid ${T.colors.accent}`
+          : `2px solid ${T.colors.border}`,
         cursor: "pointer",
-        transform: hovered ? "translateY(-3px)" : "translateY(0)",
-        boxShadow: hovered ? `0 12px 40px rgba(0,0,0,0.4)` : "none",
-
-        // Large cards span the full grid width and lay out horizontally
+        boxShadow: hovered
+          ? `0 0 16px rgba(0,204,255,0.3), 0 0 2px rgba(0,204,255,0.8), inset 0 0 20px rgba(0,204,255,0.05)`
+          : "none",
         gridColumn: isLarge ? "1 / -1" : "auto",
         display: isLarge ? "grid" : "block",
         gridTemplateColumns: isLarge ? "1.2fr 1fr" : "1fr",
+        transition: "box-shadow 0.1s linear, border-color 0.1s linear",
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={onClick}
     >
-      {/* Image area — gradient placeholder */}
+      {/* Image area */}
       <div
         style={{
           width: "100%",
-          height: isLarge ? "100%" : "200px",
-          minHeight: isLarge ? "320px" : "200px",
+          height: isLarge ? "100%" : "180px",
+          minHeight: isLarge ? "280px" : "180px",
           position: "relative",
           background: GRADIENTS[variant] || GRADIENTS.analytics,
+          borderBottom: isLarge ? "none" : `1px solid ${T.colors.border}`,
+          borderRight: isLarge ? `1px solid ${T.colors.border}` : "none",
+          overflow: "hidden",
         }}
       >
-        {/* Year in corner */}
+        {/* Scanline overlay */}
+        <div style={{
+          position: "absolute", inset: 0,
+          background: "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.15) 3px, rgba(0,0,0,0.15) 4px)",
+          pointerEvents: "none",
+        }} />
+
+        {/* Year */}
         <span
           style={{
             position: "absolute",
-            bottom: "16px",
-            right: "16px",
+            bottom: "10px",
+            right: "10px",
             fontFamily: T.fonts.mono,
-            fontSize: "11px",
-            color: "rgba(255,255,255,0.3)",
+            fontSize: "10px",
+            color: "rgba(0,204,255,0.4)",
+            letterSpacing: "0.1em",
           }}
         >
           {project.year}
@@ -83,47 +82,50 @@ export default function ProjectCard({ project, variant, onClick, size = "default
           <span
             style={{
               position: "absolute",
-              top: "12px",
-              left: "12px",
+              top: "10px",
+              left: "10px",
               fontFamily: T.fonts.mono,
-              fontSize: "10px",
-              letterSpacing: "0.1em",
+              fontSize: "9px",
+              letterSpacing: "0.12em",
               textTransform: "uppercase",
-              color: accent,
-              background: `${accent}18`,
-              padding: "4px 10px",
-              borderRadius: T.radii.sm,
-              border: `1px solid ${accent}30`,
+              color: "#FF00FF",
+              background: "rgba(255,0,255,0.1)",
+              padding: "3px 8px",
+              border: "1px solid rgba(255,0,255,0.4)",
             }}
           >
-            Featured
+            ★ Featured
           </span>
         )}
       </div>
 
       {/* Text content */}
-      <div style={{ padding: isLarge ? "36px" : "24px" }}>
+      <div style={{ padding: isLarge ? "28px" : "18px" }}>
         {/* Section label */}
         <div
           style={{
             fontFamily: T.fonts.mono,
-            fontSize: "10px",
-            letterSpacing: "0.12em",
+            fontSize: "9px",
+            letterSpacing: "0.15em",
             textTransform: "uppercase",
-            color: accent,
-            marginBottom: "12px",
+            color: T.colors.accentAlt,
+            marginBottom: "8px",
           }}
         >
-          {config.label || variant}
+          ✦ {config.label || variant}
         </div>
 
         <h3
           style={{
             fontFamily: T.fonts.display,
-            fontSize: isLarge ? "26px" : "20px",
-            fontWeight: 600,
-            margin: "0 0 12px",
+            fontSize: isLarge ? "22px" : "17px",
+            fontWeight: "bold",
+            margin: "0 0 10px",
             lineHeight: 1.3,
+            textTransform: "uppercase",
+            letterSpacing: "0.03em",
+            color: hovered ? T.colors.accent : T.colors.textPrimary,
+            textShadow: hovered ? `0 0 8px rgba(0,204,255,0.5)` : "none",
           }}
         >
           {project.title}
@@ -131,35 +133,37 @@ export default function ProjectCard({ project, variant, onClick, size = "default
 
         <p
           style={{
-            fontSize: "14px",
+            fontSize: "12px",
             color: T.colors.textSecondary,
-            margin: "0 0 20px",
+            margin: "0 0 16px",
             lineHeight: 1.7,
+            fontFamily: T.fonts.body,
           }}
         >
           {project.description}
         </p>
 
         {/* Tags */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
           {project.tags.map((tag) => (
             <Tag key={tag} label={tag} accent={accent} />
           ))}
         </div>
 
-        {/* "View Case Study" link — only on large cards */}
+        {/* View link — large cards only */}
         {isLarge && (
           <div
             style={{
               fontFamily: T.fonts.mono,
-              fontSize: "12px",
-              color: accent,
-              marginTop: "24px",
-              paddingTop: "16px",
+              fontSize: "11px",
+              color: T.colors.accent,
+              marginTop: "20px",
+              paddingTop: "12px",
               borderTop: `1px solid ${T.colors.borderSubtle}`,
+              letterSpacing: "0.08em",
             }}
           >
-            View Case Study →
+            &gt;&gt; View Case Study
           </div>
         )}
       </div>

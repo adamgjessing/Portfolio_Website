@@ -1,15 +1,5 @@
 // src/pages/HomePage.jsx
-// ──────────────────────────────────────────────
-// HOME PAGE — The hub. Shows:
-//   1. Hero section (name, tagline)
-//   2. Featured projects from each section
-//   3. About preview
-//   4. Footer
-//
-// This page auto-generates sections from
-// SITE_CONFIG.sections — add a section there
-// and it appears here automatically.
-// ──────────────────────────────────────────────
+// Early 2000s Edition — blinking cursors, marquee, neon glow
 
 import T from "../theme/theme";
 import SITE_CONFIG from "../data/siteConfig";
@@ -39,53 +29,64 @@ export default function HomePage({ router }) {
           ...fadeHero,
         }}
       >
+        {/* Decorative top bar */}
+        <div style={{ width: "100%", maxWidth: "700px", marginBottom: "32px" }}>
+          <hr className="pixel-hr" />
+        </div>
+
         <div style={{ maxWidth: "700px" }}>
-          {/* Small label above name */}
+          {/* Star decorators + label */}
           <p
             style={{
               fontFamily: T.fonts.mono,
-              fontSize: "12px",
-              letterSpacing: "0.15em",
+              fontSize: "11px",
+              letterSpacing: "0.2em",
               textTransform: "uppercase",
-              color: T.colors.accent,
-              marginBottom: "24px",
+              color: T.colors.accentAlt,
+              marginBottom: "20px",
             }}
           >
-            Portfolio
+            ✦ ✦ ✦ &nbsp; Portfolio &nbsp; ✦ ✦ ✦
           </p>
 
-          {/* Name */}
+          {/* Name with glow */}
           <h1
+            className="glow"
             style={{
               fontFamily: T.fonts.display,
-              fontSize: "clamp(40px, 6vw, 72px)",
-              fontWeight: 700,
-              letterSpacing: "-0.03em",
-              lineHeight: 1.1,
-              margin: "0 0 24px",
+              fontSize: "clamp(36px, 6vw, 68px)",
+              fontWeight: "bold",
+              letterSpacing: "0.04em",
+              textTransform: "uppercase",
+              lineHeight: 1.15,
+              margin: "0 0 8px",
+              color: T.colors.accent,
+              textShadow: `0 0 20px ${T.colors.accent}, 0 0 40px rgba(0,204,255,0.4)`,
             }}
           >
             {SITE_CONFIG.name}
+            {/* Blinking cursor */}
+            <span
+              className="blink"
+              style={{ color: "#FF00FF", marginLeft: "6px", fontWeight: "normal" }}
+            >
+              _
+            </span>
           </h1>
 
-          {/* Gold divider */}
-          <div
-            style={{
-              width: "48px",
-              height: "1px",
-              background: T.colors.accent,
-              margin: "0 auto 24px",
-            }}
-          />
+          {/* Pixel-style divider */}
+          <div style={{ margin: "20px auto", width: "100%", maxWidth: "400px" }}>
+            <hr className="pixel-hr" />
+          </div>
 
           {/* Tagline */}
           <p
             style={{
               fontFamily: T.fonts.display,
-              fontSize: "24px",
+              fontSize: "18px",
               fontStyle: "italic",
               color: T.colors.textSecondary,
-              margin: "0 0 12px",
+              margin: "0 0 10px",
             }}
           >
             {SITE_CONFIG.tagline}
@@ -94,94 +95,112 @@ export default function HomePage({ router }) {
           {/* Subtitle */}
           <p
             style={{
-              fontSize: "16px",
+              fontSize: "13px",
               color: T.colors.textMuted,
-              margin: "0 0 40px",
-              fontWeight: 300,
+              margin: "0 0 32px",
+              fontFamily: T.fonts.mono,
+              letterSpacing: "0.05em",
             }}
           >
             {SITE_CONFIG.subtitle}
           </p>
 
-          {/* Section labels ("Analytics · Photography") */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: "8px",
-            }}
-          >
+          {/* Section chips */}
+          <div style={{ display: "flex", justifyContent: "center", gap: "0", flexWrap: "wrap" }}>
             {SITE_CONFIG.sections.map((section, i) => (
-              <span
-                key={section}
-                style={{
-                  fontFamily: T.fonts.mono,
-                  fontSize: "12px",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  color: T.colors.textSecondary,
-                }}
-              >
-                {i > 0 && " · "}
-                {(SECTION_CONFIG[section] || {}).label || section}
+              <span key={section}>
+                {i > 0 && (
+                  <span style={{ color: "#FF00FF", margin: "0 8px", fontFamily: T.fonts.mono }}>
+                    ::
+                  </span>
+                )}
+                <span
+                  style={{
+                    fontFamily: T.fonts.mono,
+                    fontSize: "11px",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: T.colors.accent,
+                  }}
+                >
+                  {(SECTION_CONFIG[section] || {}).label || section}
+                </span>
               </span>
             ))}
           </div>
         </div>
 
-        {/* Scroll hint line */}
-        <div style={{ position: "absolute", bottom: "40px" }}>
-          <div
+        {/* Decorative bottom bar */}
+        <div style={{ width: "100%", maxWidth: "700px", marginTop: "40px" }}>
+          <hr className="pixel-hr" />
+        </div>
+
+        {/* Marquee ticker */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: "24px",
+            left: 0,
+            right: 0,
+            overflow: "hidden",
+            borderTop: `1px solid ${T.colors.borderSubtle}`,
+            borderBottom: `1px solid ${T.colors.borderSubtle}`,
+            padding: "6px 0",
+            background: "rgba(0,0,51,0.5)",
+          }}
+        >
+          <marquee
+            scrollamount="3"
             style={{
-              width: "1px",
-              height: "48px",
-              background: `linear-gradient(to bottom, ${T.colors.textMuted}, transparent)`,
+              fontFamily: T.fonts.mono,
+              fontSize: "10px",
+              letterSpacing: "0.15em",
+              color: T.colors.accent,
+              opacity: 0.7,
             }}
-          />
+          >
+            ✦ &nbsp; PHOTOGRAPHY &nbsp; ✦ &nbsp; ANALYTICS &nbsp; ✦ &nbsp; CREATIVE WORK &nbsp; ✦ &nbsp; PHOTOGRAPHY &nbsp; ✦ &nbsp; ANALYTICS &nbsp; ✦ &nbsp; CREATIVE WORK &nbsp; ✦ &nbsp; PHOTOGRAPHY &nbsp; ✦ &nbsp; ANALYTICS &nbsp;
+          </marquee>
         </div>
       </section>
 
-      {/* ─── FEATURED WORK — one block per section ─── */}
+      {/* ─── FEATURED WORK ─── */}
       <div style={fadeSections}>
         {SITE_CONFIG.sections.map((sectionKey) => {
           const config = SECTION_CONFIG[sectionKey] || {};
           const projects = SECTION_DATA[sectionKey] || [];
 
-          // Show featured projects, or first 2 if none are featured
           const featured = projects.filter((p) => p.featured);
           const display = featured.length > 0 ? featured : projects.slice(0, 2);
 
           return (
             <section
               key={sectionKey}
-              style={{ maxWidth: "1200px", margin: "0 auto", padding: "80px 40px" }}
+              style={{ maxWidth: "1200px", margin: "0 auto", padding: "64px 40px" }}
             >
-              {/* Section header with "View All" button */}
+              {/* Section header */}
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
-                  marginBottom: "40px",
-                  paddingBottom: "20px",
-                  borderBottom: `1px solid ${T.colors.borderSubtle}`,
+                  marginBottom: "24px",
+                  paddingBottom: "12px",
+                  borderBottom: `1px solid ${T.colors.accent}`,
                 }}
               >
-                <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                  <div
-                    style={{
-                      width: "3px",
-                      height: "28px",
-                      borderRadius: "2px",
-                      background: config.accent || T.colors.accent,
-                    }}
-                  />
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                  <span style={{ color: T.colors.accentAlt, fontFamily: T.fonts.mono }}>►</span>
                   <h2
                     style={{
                       fontFamily: T.fonts.display,
-                      fontSize: "32px",
-                      fontWeight: 600,
+                      fontSize: "22px",
+                      fontWeight: "bold",
                       margin: 0,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.08em",
+                      color: T.colors.accent,
+                      textShadow: `0 0 10px rgba(0,204,255,0.5)`,
                     }}
                   >
                     {config.label || sectionKey}
@@ -198,7 +217,7 @@ export default function HomePage({ router }) {
                 style={{
                   display: "grid",
                   gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
-                  gap: "24px",
+                  gap: "16px",
                 }}
               >
                 {display.map((project, i) => (
@@ -217,34 +236,34 @@ export default function HomePage({ router }) {
       </div>
 
       {/* ─── ABOUT PREVIEW ─── */}
-      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "80px 40px" }}>
+      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "64px 40px" }}>
         <div
           style={{
             background: T.colors.bgCard,
             border: `1px solid ${T.colors.border}`,
-            borderRadius: T.radii.xl,
-            padding: "48px",
+            borderTop: `2px solid ${T.colors.accent}`,
+            padding: "32px",
           }}
         >
           <p
             style={{
               fontFamily: T.fonts.mono,
-              fontSize: "11px",
-              letterSpacing: "0.12em",
+              fontSize: "10px",
+              letterSpacing: "0.15em",
               textTransform: "uppercase",
-              color: T.colors.accent,
-              marginBottom: "16px",
+              color: T.colors.accentAlt,
+              marginBottom: "12px",
             }}
           >
-            About
+            ✦ About Me
           </p>
           <p
             style={{
-              fontSize: "18px",
-              lineHeight: 1.7,
+              fontSize: "13px",
+              lineHeight: 1.8,
               color: T.colors.textPrimary,
-              margin: "0 0 20px",
-              fontWeight: 300,
+              margin: "0 0 16px",
+              fontFamily: T.fonts.body,
             }}
           >
             {SITE_CONFIG.about.intro}
@@ -253,15 +272,17 @@ export default function HomePage({ router }) {
             onClick={router.goAbout}
             style={{
               background: "none",
-              border: "none",
+              border: `1px solid ${T.colors.accent}`,
               color: T.colors.accent,
               fontFamily: T.fonts.mono,
-              fontSize: "12px",
+              fontSize: "11px",
+              letterSpacing: "0.1em",
               cursor: "pointer",
-              padding: 0,
+              padding: "6px 14px",
+              textTransform: "uppercase",
             }}
           >
-            More about me →
+            &gt;&gt; More About Me
           </button>
         </div>
       </section>

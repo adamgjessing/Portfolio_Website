@@ -1,12 +1,4 @@
-// src/components/ViewAllButton.jsx
-// ──────────────────────────────────────────────
-// VIEW ALL BUTTON — "View All →" link button.
-// Used on the homepage next to section headers.
-//
-// Props:
-//   onClick — navigation function
-//   accent  — border color on hover
-// ──────────────────────────────────────────────
+// src/components/ViewAllButton.jsx — Early 2000s Edition
 
 import { useState } from "react";
 import T from "../theme/theme";
@@ -20,20 +12,20 @@ export default function ViewAllButton({ onClick, accent }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: "none",
-        border: `1px solid ${hovered ? accent || T.colors.accent : T.colors.border}`,
-        color: hovered ? T.colors.textPrimary : T.colors.textSecondary,
+        background: hovered ? "rgba(0,204,255,0.1)" : "none",
+        border: `1px solid ${hovered ? T.colors.accent : T.colors.border}`,
+        color: hovered ? T.colors.accent : T.colors.textSecondary,
         fontFamily: T.fonts.mono,
-        fontSize: "11px",
-        letterSpacing: "0.08em",
+        fontSize: "10px",
+        letterSpacing: "0.12em",
         textTransform: "uppercase",
         cursor: "pointer",
-        padding: "8px 20px",
-        borderRadius: T.radii.md,
-        transition: `all ${T.transitions.fast}`,
+        padding: "6px 16px",
+        boxShadow: hovered ? `0 0 8px rgba(0,204,255,0.3)` : "none",
+        textShadow: hovered ? `0 0 6px rgba(0,204,255,0.6)` : "none",
       }}
     >
-      View All →
+      &gt;&gt; View All
     </button>
   );
 }

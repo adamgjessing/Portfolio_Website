@@ -1,11 +1,4 @@
-// src/components/BackButton.jsx
-// ──────────────────────────────────────────────
-// BACK BUTTON — "← Back" navigation link.
-//
-// Props:
-//   onClick — function called when clicked
-//   label   — text after the arrow (e.g., "Home")
-// ──────────────────────────────────────────────
+// src/components/BackButton.jsx — Early 2000s Edition
 
 import { useState } from "react";
 import T from "../theme/theme";
@@ -21,18 +14,18 @@ export default function BackButton({ onClick, label }) {
       style={{
         background: "none",
         border: "none",
-        color: hovered ? T.colors.textPrimary : T.colors.textMuted,
+        color: hovered ? T.colors.accent : T.colors.textMuted,
         fontFamily: T.fonts.mono,
-        fontSize: "12px",
-        letterSpacing: "0.08em",
+        fontSize: "11px",
+        letterSpacing: "0.1em",
         textTransform: "uppercase",
         cursor: "pointer",
         padding: 0,
-        marginBottom: "32px",
-        transition: `color ${T.transitions.fast}`,
+        marginBottom: "28px",
+        textShadow: hovered ? `0 0 6px rgba(0,204,255,0.5)` : "none",
       }}
     >
-      ← {label || "Back"}
+      &lt;&lt; {label || "Back"}
     </button>
   );
 }
