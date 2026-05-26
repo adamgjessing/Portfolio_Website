@@ -58,7 +58,7 @@ const PHOTOGRAPHY_PROJECTS = [
     featured: false,
 
     images: [],
-    coverImage: "public/photos/Kheya-cover.jpg",
+    coverImage: "/photos/Kheya-cover.jpg",
 
     highlights: [
       "Candid event coverage",
