@@ -69,18 +69,36 @@ export default function ProjectPage({ sectionKey, projectId, router }) {
         style={{
           width: "100%",
           height: "400px",
-          background: GRADIENTS[sectionKey] || GRADIENTS.analytics,
+          background: project.coverImage ? "#000" : (GRADIENTS[sectionKey] || GRADIENTS.analytics),
           position: "relative",
           display: "flex",
           alignItems: "flex-end",
+          overflow: "hidden",
         }}
       >
-        {/* Gradient overlay so text is readable */}
+        {/* Cover photo — shown when provided */}
+        {project.coverImage && (
+          <img
+            src={project.coverImage}
+            alt={project.title}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center top",
+              display: "block",
+            }}
+          />
+        )}
+
+        {/* Gradient overlay so text is readable over the photo */}
         <div
           style={{
             position: "absolute",
             inset: 0,
-            background: "linear-gradient(to top, rgba(10,10,12,0.95) 0%, transparent 60%)",
+            background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.3) 60%, transparent 100%)",
           }}
         />
 

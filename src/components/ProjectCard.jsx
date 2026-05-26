@@ -49,12 +49,29 @@ export default function ProjectCard({ project, variant, onClick, size = "default
           height: isLarge ? "100%" : "180px",
           minHeight: isLarge ? "280px" : "180px",
           position: "relative",
-          background: GRADIENTS[variant] || GRADIENTS.analytics,
+          background: project.coverImage ? "none" : (GRADIENTS[variant] || GRADIENTS.analytics),
           borderBottom: isLarge ? "none" : `1px solid ${T.colors.border}`,
           borderRight: isLarge ? `1px solid ${T.colors.border}` : "none",
           overflow: "hidden",
         }}
       >
+        {/* Cover photo — shown when provided */}
+        {project.coverImage && (
+          <img
+            src={project.coverImage}
+            alt={project.title}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+              display: "block",
+            }}
+          />
+        )}
+
         {/* Scanline overlay */}
         <div style={{
           position: "absolute", inset: 0,
